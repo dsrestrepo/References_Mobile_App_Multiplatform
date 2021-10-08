@@ -77,8 +77,23 @@ export class LoginPage implements OnInit {
         );
         // Call Alert
         await alert.present();
+			}
 
-
+      if (err.code === 'auth/wrong-password')
+      {
+        console.log("User not found")
+        // Alert
+        const alert = await this.alertController.create(
+          {
+          cssClass: 'my-custom-class',
+          header: 'incorrect password',
+          subHeader: '',
+          message: 'Try Again',
+          buttons: ['OK']
+          }
+        );
+        // Call Alert
+        await alert.present();
 			}
 
 		}
