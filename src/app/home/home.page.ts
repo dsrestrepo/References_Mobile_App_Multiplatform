@@ -93,7 +93,7 @@ export class HomePage {
           tipopub: reference.tipopub,
           eventorevista: reference.eventorevista,
           doi: reference.doi,
-          anyopub: reference.anyo
+          anyopub: JSON.stringify(reference.anyopub)
           
       }
   };

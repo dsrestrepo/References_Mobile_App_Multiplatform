@@ -23,6 +23,8 @@ export class EditReferencePage implements OnInit {
   eventorevista: string;
   doi: string;
   anyopub: any;
+  aux_pubtype: number;
+  aux_anyopu: number;
 
   constructor(    
     public afAuth: AngularFireAuth, 
@@ -36,13 +38,14 @@ export class EditReferencePage implements OnInit {
         this.username = params["username"];
         this.titulopub = params['titulopub'];
         this.autores = params['autores'];
-        this.tipopub = params['titulopub'];
+        this.tipopub = params['tipopub'];
         this.eventorevista = params['eventorevista'];
         this.doi = params['doi'];
-        this.anyopub = params['anyopub'];
+        this.anyopub = JSON.parse(params['anyopub']);
+        this.aux_pubtype = this.tipopub;
+        //this.aux_anyopu = params['anyopub'];
         console.log(this.username)
         console.log(this.id)
-
       });
     }
 
@@ -55,32 +58,14 @@ export class EditReferencePage implements OnInit {
 
     const { titulopub, autores, tipopub, eventorevista, doi,  anyopub} = this
     let anyo:number;
-    try{
-      anyo = Number(this.anyopub.substring(0, 4));
-    }
-    catch{
-          // Alert
-      const alert = await this.alertController.create(
-        {
-        cssClass: 'my-custom-class',
-        header: 'Year not found',
-        subHeader: '',
-        message: 'Try Must Select the year',
-        buttons: ['OK']
-        }
-      );
-      // Call Alert
-      await alert.present();
-      return 0
-    }
-
-
+  
+    // If new year were selected
+    anyo = Number(this.anyopub.substring(0, 4));
 
 		try 
     {
       console.log(this.titulopub, this.autores, this.tipopub, this.eventorevista, anyo)
       console.log(this.id)
-      //console.log(typeof this.tipopub)
 
       let new_ref = {
         titulopub: this.titulopub,
@@ -90,15 +75,14 @@ export class EditReferencePage implements OnInit {
         doi: this.doi,
         anyopub: anyo
       }
-
       
       const res_2 = await this.database.updateItem(this.username, this.id, new_ref ).then(res =>{
-        console.log(res)
+        console.log('reference edited!')
       }).catch(err => {
         return console.log(err)
       });
-      
 
+    
       // Go to home
       this.router.navigate(['/home'])
 
@@ -112,3 +96,5 @@ export class EditReferencePage implements OnInit {
   }
 
 }
+
+
