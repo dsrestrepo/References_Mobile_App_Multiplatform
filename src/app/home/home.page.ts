@@ -16,8 +16,6 @@ export class HomePage {
   username: string = '' ;
   reflist = [];
 
-  
-
   constructor(
     public afAuth: AngularFireAuth, 
     public router: Router,
@@ -94,9 +92,9 @@ export class HomePage {
     );
     // Call Alert
     await alert.present();
-
-
   }
+
+  
 
   async edit_reference(id, reference){
 
@@ -115,6 +113,25 @@ export class HomePage {
   };
     this.router.navigate(['edit-reference'], navigationExtras)
   }
+
+  async show_reference(id, reference){
+
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          id: id,
+          username: this.username,
+          titulopub: reference.titulopub,
+          autores: reference.autores,
+          tipopub: reference.tipopub,
+          eventorevista: reference.eventorevista,
+          doi: reference.doi,
+          anyopub: JSON.stringify(reference.anyopub)
+          
+      }
+  };
+    this.router.navigate(['show-reference'], navigationExtras)
+  }
+
 
 
   async SignOut() {

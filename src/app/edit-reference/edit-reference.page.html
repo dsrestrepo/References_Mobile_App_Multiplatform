@@ -6,7 +6,7 @@
 
 <ion-content>
 
-  
+
   <ion-button color="primary" type="submit" expand="block" [routerLink]="['/home']">Home
   </ion-button>
 
@@ -44,7 +44,8 @@
 
     <ion-item>
       <ion-label>Publication Year</ion-label>
-      <ion-datetime type="number" [pickerOptions]="customPickerOptions" [(ngModel)]="anyopub" placeholder="Custom Options" displayFormat="YYYY" min="1950" max="2021"></ion-datetime>
+      <ion-datetime type="number" [pickerOptions]="customPickerOptions" [(ngModel)]="anyopub"
+        placeholder="Custom Options" displayFormat="YYYY" min="1950" max="2021"></ion-datetime>
     </ion-item>
 
     <ion-button fill="solid" expand="block" color="dark" (click)="editref()">Save</ion-button>

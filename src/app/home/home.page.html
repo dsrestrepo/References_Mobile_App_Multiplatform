@@ -30,7 +30,7 @@
 
 
   <p style="text-align: center;"> References: </p>
-  <ion-card *ngFor="let reference of reflist">
+  <ion-card *ngFor="let reference of reflist" (click)='show_reference(reference.id, reference)'>
     <ion-card-header>
       <ion-card-title>{{reference.titulopub}}</ion-card-title>
       <ion-card-subtitle>| {{reference.autores}} |</ion-card-subtitle>

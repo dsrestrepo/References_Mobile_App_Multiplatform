@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {Router} from '@angular/router'
 import { DatabaseService } from '../database.service';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
-
 @Component({
-  selector: 'app-edit-reference',
-  templateUrl: './edit-reference.page.html',
-  styleUrls: ['./edit-reference.page.scss'],
+  selector: 'app-show-reference',
+  templateUrl: './show-reference.page.html',
+  styleUrls: ['./show-reference.page.scss'],
 })
-export class EditReferencePage implements OnInit {
-
+export class ShowReferencePage implements OnInit {
   id:any;
   username:any;
 
@@ -25,14 +24,16 @@ export class EditReferencePage implements OnInit {
   anyopub: any;
   aux_pubtype: number;
   aux_anyopu: number;
+  params: any;
+
 
   constructor(    
     public afAuth: AngularFireAuth, 
     public router: Router,
     public database:DatabaseService,
     public route: ActivatedRoute,
-    public alertController: AlertController
-    ){ 
+    public alertController: AlertController) 
+    {
       this.route.queryParams.subscribe(params => {
         this.id = params["id"];
         this.username = params["username"];
@@ -43,16 +44,58 @@ export class EditReferencePage implements OnInit {
         this.doi = params['doi'];
         this.anyopub = JSON.parse(params['anyopub']);
         this.aux_pubtype = this.tipopub;
+        this.params = params
         //this.aux_anyopu = params['anyopub'];
         console.log(this.username)
         console.log(this.id)
-      });
+     });
     }
 
-  ngOnInit() {
 
+
+  ngOnInit() {
   }
 
+
+    
+  async delete_reference(id){
+    console.log(this.username);
+    console.log(id);
+    // Alert
+    const alert = await this.alertController.create(
+      {
+      cssClass: 'my-custom-class',
+      header: 'Delete reference',
+      subHeader: '',
+      message: 'Your reference will be deleted',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            return console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: () => {
+            this.database.delete(this.username, id).then(res =>{
+              console.log("reference deleted")
+              // Go to home
+              this.router.navigate(['/home'])
+            }).catch(err => {
+              console.log(err)
+            });
+
+          }
+        }
+      ]
+      }
+    );
+    // Call Alert
+    await alert.present();
+  }
+
+  
+
 }
-
-

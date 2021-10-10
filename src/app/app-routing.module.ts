@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'edit-reference',
     loadChildren: () => import('./edit-reference/edit-reference.module').then( m => m.EditReferencePageModule)
   },
+  {
+    path: 'show-reference',
+    loadChildren: () => import('./show-reference/show-reference.module').then( m => m.ShowReferencePageModule)
+  },
 ];
 
 @NgModule({

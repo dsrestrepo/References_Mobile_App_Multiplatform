@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Reference</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button color="primary" type="submit" expand="block" [routerLink]="['/home']">Home
+  </ion-button>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{titulopub}}</ion-card-title>
+      <ion-card-subtitle>| {{autores}} |</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="tipopub == 1">| Journal Paper |</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="tipopub == 2">| Event Paper |</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="tipopub == 3">| Other |</ion-card-subtitle>
+      <ion-card-subtitle>| {{eventorevista}} |</ion-card-subtitle>
+      <ion-card-subtitle>| {{doi}} |</ion-card-subtitle>
+      <ion-card-subtitle>| {{anyopub}} |</ion-card-subtitle>
+
+
+    </ion-card-header>
+
+    <ion-card-content>
+
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>
