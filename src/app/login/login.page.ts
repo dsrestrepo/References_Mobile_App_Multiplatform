@@ -27,8 +27,8 @@ export class LoginPage implements OnInit {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userData = user;
-        console.log(this.userData)
-        console.log(JSON.stringify(this.userData))
+        //console.log(this.userData)
+        //console.log(JSON.stringify(this.userData))
         this.router.navigate(['/home'])
         //localStorage.setItem('user', JSON.stringify(this.userData));
         //JSON.parse(localStorage.getItem('user'));
@@ -42,8 +42,6 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
-
-
 
 
   async login()

@@ -19,6 +19,14 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
   },
+  {
+    path: 'new-reference',
+    loadChildren: () => import('./new-reference/new-reference.module').then( m => m.NewReferencePageModule)
+  },
+  {
+    path: 'edit-reference',
+    loadChildren: () => import('./edit-reference/edit-reference.module').then( m => m.EditReferencePageModule)
+  },
 ];
 
 @NgModule({

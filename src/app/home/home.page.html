@@ -13,11 +13,49 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div>
+    <p style="text-align: center;">{{username}}</p>
   </div>
 
-  <ion-button type="submit" (click)="SignOut()" expand="block">Logout</ion-button>
+  <ion-row>
+    <ion-col>
+      <ion-button size='small' color="primary" type="submit" expand="block" [routerLink]="['/new-reference']">Add New
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button size='small' color="danger" type="submit" (click)="SignOut()" expand="block">Logout</ion-button>
+    </ion-col>
+  </ion-row>
+
+
+
+  <p style="text-align: center;"> References: </p>
+  <ion-card *ngFor="let reference of reflist">
+    <ion-card-header>
+      <ion-card-title>{{reference.titulopub}}</ion-card-title>
+      <ion-card-subtitle>| {{reference.autores}} |</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="reference.tipopub == 1">| Journal Paper |</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="reference.tipopub == 2">| Event Paper |</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="reference.tipopub == 3">| Other |</ion-card-subtitle>
+      <ion-card-subtitle>| {{reference.eventorevista}} |</ion-card-subtitle>
+      <ion-card-subtitle>| {{reference.doi}} |</ion-card-subtitle>
+      <ion-card-subtitle>| {{reference.anyopub}} |</ion-card-subtitle>
+      <ion-row>
+        <ion-col>
+          <ion-button size="small" expand="block" color="danger" (click)='delete_reference(reference.id)'>Delete</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button size="small" expand="block" (click)='edit_reference(reference.id, reference)'>Edit</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </ion-card-header>
+
+    <ion-card-content>
+
+    </ion-card-content>
+  </ion-card>
+
+
 
 </ion-content>

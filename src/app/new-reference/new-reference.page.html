@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Reference</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button size='small' color="primary" type="submit" expand="block" [routerLink]="['/home']">Home</ion-button>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label position="floating">Title</ion-label>
+      <ion-input type="text" [(ngModel)]="titulopub"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Authors</ion-label>
+      <ion-input type="text" [(ngModel)]="autores"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Publication Type</ion-label>
+      <ion-select type="number" [(ngModel)]="tipopub" [value]=1 okText="Okay" cancelText="Dismiss">
+        <ion-select-option type="number" [value]=1>Journal Paper</ion-select-option>
+        <ion-select-option type="number" [value]=2>Event Paper</ion-select-option>
+        <ion-select-option type="number" [value]=3>Other</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Event or Journal Name</ion-label>
+      <ion-input type="text" [(ngModel)]="eventorevista"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">doi</ion-label>
+      <ion-input type="text" [(ngModel)]="doi"></ion-input>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label>Publication Year</ion-label>
+      <ion-datetime type="number" [pickerOptions]="customPickerOptions" [(ngModel)]="anyopub" placeholder="Custom Options" displayFormat="YYYY" min="1950" max="2021"></ion-datetime>
+    </ion-item>
+
+    <ion-button fill="solid" expand="block" color="dark" (click)="saveref()">Save</ion-button>
+
+  </ion-list>
+
+</ion-content>

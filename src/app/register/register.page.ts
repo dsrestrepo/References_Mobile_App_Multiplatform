@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {AlertController} from '@ionic/angular'
 import {Router} from '@angular/router'
+import { DatabaseService } from '../database.service';
 
 
 @Component({
@@ -13,7 +14,10 @@ export class RegisterPage implements OnInit {
 
   username: string = ""
 	password: string = ""
+  email: string = ""
+  name: string = ""
 	cpassword: string = ""
+
 
   userData: any;
 
@@ -21,6 +25,7 @@ export class RegisterPage implements OnInit {
     public afAuth: AngularFireAuth, 
     public router: Router,
     public alertController: AlertController,
+    private database: DatabaseService,
     ) 
     {
       // Verify if user is logged
@@ -29,7 +34,6 @@ export class RegisterPage implements OnInit {
           this.userData = user;
           console.log(this.userData)
           console.log(JSON.stringify(this.userData))
-          this.router.navigate(['/home'])
           //localStorage.setItem('user', JSON.stringify(this.userData));
           //JSON.parse(localStorage.getItem('user'));
         } else {
@@ -45,7 +49,7 @@ export class RegisterPage implements OnInit {
 
   async register(){
 
-    const { username, password, cpassword } = this
+    const { username, password, cpassword, email, name } = this
 		// If passwords are not the same
     if(password !== cpassword) 
     {
@@ -63,13 +67,44 @@ export class RegisterPage implements OnInit {
       await alert.present();
 			return console.error("Passwords sholud be the same")
 		}
+    if (email === "") {
+      // Alert
+      const alert = await this.alertController.create(
+        {
+        cssClass: 'my-custom-class',
+        header: 'Email empty',
+        subHeader: '',
+        message: 'You must provide an email',
+        buttons: ['OK']
+        }
+      );
+      // Call Alert
+      await alert.present();
+      return console.error("Email not provided")
+    }
 		try 
     {
       // Try to create new user
 			const res = await this.afAuth.createUserWithEmailAndPassword(username + '@referencesapp.com', password)
       console.log(res)
+
+      let new_user = {
+        email:this.email,
+        name:this.name,
+        username: this.username,
+        //password:this.password,
+      }
+
+      const res_2 = await this.database.create('users', this.username, new_user).then(res =>{
+        console.log(res_2)
+      }).catch(err => {
+        console.log(err)
+      });
+
       // Go to home
       this.router.navigate(['/home'])
+
+
 		} 
     catch(error) 
     {
@@ -89,8 +124,23 @@ export class RegisterPage implements OnInit {
         // Call Alert
         await alert.present();
       }
-
-		}
+		
+    //auth/email-already-in-use
+    if(error.code === 'auth/email-already-in-use'){
+      // Alert
+      const alert = await this.alertController.create(
+        {
+        cssClass: 'my-custom-class',
+        header: 'user already exists',
+        subHeader: '',
+        message: 'Try login instead of create new user',
+        buttons: ['OK']
+        }
+      );
+      // Call Alert
+      await alert.present();
+    }
+    }
     
 
   }
