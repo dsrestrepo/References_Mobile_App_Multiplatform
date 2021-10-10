@@ -91,7 +91,6 @@ export class EditReferencePage implements OnInit {
       });
       // Go to home
       this.router.navigate(['/home'])
-
 		} 
     catch(error) 
     {
