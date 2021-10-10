@@ -25,6 +25,7 @@ export class ShowReferencePage implements OnInit {
   aux_pubtype: number;
   aux_anyopu: number;
   params: any;
+  summary:string;
 
 
   constructor(    
@@ -42,6 +43,7 @@ export class ShowReferencePage implements OnInit {
         this.tipopub = params['tipopub'];
         this.eventorevista = params['eventorevista'];
         this.doi = params['doi'];
+        this.summary = params['summary']
         this.anyopub = JSON.parse(params['anyopub']);
         this.aux_pubtype = this.tipopub;
         this.params = params

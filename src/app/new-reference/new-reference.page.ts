@@ -21,6 +21,7 @@ export class NewReferencePage implements OnInit {
   eventorevista: string = "";
   doi: string = "";
   anyopub: any = "2000";
+  summary:string = '';
 
   constructor(
     public afAuth: AngularFireAuth, 
@@ -47,13 +48,13 @@ export class NewReferencePage implements OnInit {
 
   async saveref(){
 
-    const { titulopub, autores, tipopub, eventorevista, doi,  anyopub} = this
+    const { titulopub, autores, tipopub, eventorevista, doi, anyopub, summary} = this
 
     let anyo:number = Number(this.anyopub.substring(0, 4));
 		try 
     {
 
-      console.log(this.titulopub, this.autores, this.tipopub, this.eventorevista, anyo)
+      console.log(this.titulopub, this.autores, this.tipopub, this.eventorevista, anyo, this.summary)
       //console.log(typeof anyo)
       //console.log(typeof this.tipopub)
 
@@ -63,7 +64,8 @@ export class NewReferencePage implements OnInit {
         tipopub: this.tipopub,
         eventorevista: this.eventorevista,
         doi: this.doi,
-        anyopub: anyo
+        anyopub: anyo,
+        summary: this.summary
       }
 
       const res_2 = await this.database.create_ref(this.username, new_ref).then(res =>{

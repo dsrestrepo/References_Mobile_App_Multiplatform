@@ -94,7 +94,7 @@ export class HomePage {
     await alert.present();
   }
 
-  
+
 
   async edit_reference(id, reference){
 
@@ -107,8 +107,8 @@ export class HomePage {
           tipopub: reference.tipopub,
           eventorevista: reference.eventorevista,
           doi: reference.doi,
+          summary: reference.summary,
           anyopub: JSON.stringify(reference.anyopub)
-          
       }
   };
     this.router.navigate(['edit-reference'], navigationExtras)
@@ -125,6 +125,7 @@ export class HomePage {
           tipopub: reference.tipopub,
           eventorevista: reference.eventorevista,
           doi: reference.doi,
+          summary: reference.summary,
           anyopub: JSON.stringify(reference.anyopub)
           
       }
