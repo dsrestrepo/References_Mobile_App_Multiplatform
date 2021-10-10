@@ -62,24 +62,40 @@ export class HomePage {
   async delete_reference(id){
     console.log(this.username);
     console.log(id);
+    
     // Alert
     const alert = await this.alertController.create(
       {
       cssClass: 'my-custom-class',
-      header: 'Reference Deleted',
+      header: 'Delete reference',
       subHeader: '',
-      message: 'Your reference has been deleted',
-      buttons: ['OK']
+      message: 'Your reference will be deleted',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            return console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: () => {
+            this.database.delete(this.username, id).then(res =>{
+              console.log("reference deleted")
+            }).catch(err => {
+              console.log(err)
+            });
+
+          }
+        }
+      ]
       }
     );
     // Call Alert
     await alert.present();
 
-    this.database.delete(this.username, id).then(res =>{
-      console.log("referencia eliminado")
-    }).catch(err => {
-      console.log(err)
-    });
+
   }
 
   async edit_reference(id, reference){
