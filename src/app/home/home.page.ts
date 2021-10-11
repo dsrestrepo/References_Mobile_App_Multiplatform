@@ -28,6 +28,7 @@ export class HomePage {
       if (user) {
         this.userData = user;
         //console.log(this.userData.email);
+        // Delete the @referencesapp.com that we added to use firebase auth:
         this.username = this.userData.email.replace('@referencesapp.com','');
         this.get_references_list(this.username)
       } else {
